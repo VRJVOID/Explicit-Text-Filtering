@@ -1,0 +1,32 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Text Filtering API Demo</title>
+  <script src="index.js"></script>
+</head>
+<body>
+  <h1>Text Filtering API Demo</h1>
+
+  <textarea id="inputText" rows="4" cols="50"></textarea>
+  <br>
+  <button id="filterButton">Filter Text</button>
+
+  <div id="filteredText"></div>
+
+  <script>
+    document.getElementById('filterButton').addEventListener('click', async () => {
+      const inputText = document.getElementById('inputText').value;
+      const response = await fetch('./filter', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ text: inputText })
+      });
+      const data = await response.json();
+      document.getElementById('filteredText').textContent = data.filteredText;
+    });
+  </script>
+</body>
+</html>
